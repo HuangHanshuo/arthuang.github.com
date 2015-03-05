@@ -9,6 +9,12 @@ body:after {
 body:after {
   clear: both;
 }
+.key {
+  width: 30%;
+}
+.description {
+  width: 70%;
+}
 html,
 body,
 div,
