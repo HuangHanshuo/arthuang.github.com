@@ -25,6 +25,7 @@ table .description {
   text-decoration: none;
   background-color: #484848;
   background: url("http://7x006i.com1.z0.glb.clouddn.com/images/gotop.png");
+  display: none;
   cursor: pointer;
   z-index: 9999;
 }
