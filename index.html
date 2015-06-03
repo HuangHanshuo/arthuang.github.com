@@ -18,7 +18,7 @@
 <meta name="twitter:description" content="N&amp;S">
   
   
-    <link rel="icon" href="http://7x006i.com1.z0.glb.clouddn.com//images/favicon.jpg">
+    <link rel="icon" href="http://7x006i.com1.z0.glb.clouddn.com/images/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/css/style.css" type="text/css">
@@ -57,619 +57,58 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-ruby-meta-programming" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/27/ruby-meta-programming/" class="article-date">
-  <time datetime="2015-03-27T06:24:51.000Z" itemprop="datePublished">2015-03-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/work/">work</a>
-  </div>
+        <section id="main"><!--%- partial('_partial/archive', {pagination: 2, index: true}) %-->
 
-  </div>
-  <div class="article-inner">
+  
+  
     
     
-      <header class="article-header">
-        
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2015" class="archive-year">2015</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2015/03/27/ruby-meta-programming/" class="archive-article-date">
+  <time datetime="2015-03-27T06:24:51.000Z" itemprop="datePublished">Mar 27</time>
+</a>
+      
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/27/ruby-meta-programming/">Ruby meta programming</a>
+      <a class="archive-article-title" href="/2015/03/27/ruby-meta-programming/">Ruby meta programming</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Argument_Array(数组参数)">Argument Array(数组参数)</h3><pre>
-def  m(*args)
-  args.map{|arg| arg.reverse}
-end
-
-m('ab', 'bc', 'cd')  #=> [‘ba’,’cb’,’dc’]
-</pre>
-
-
-<h3 id="Around_Alias(环绕别名)">Around Alias(环绕别名)</h3><pre>
-class String
-  alias :old_reverse :reverse
-  def reverse
-    “x#{old_reverse}x”
-  end
-end
-
-“abc”.reverse #=> “xcbax”
-</pre>
-
-<h3 id="Blank_Slate(白板)">Blank Slate(白板)</h3><pre>
-移除一个对象的所有方法，以便把它们转换成幽灵方法。
-class C
-    def method_missing(name, *args)
-        “a Ghost Method”
-    end
-end
-
-obj = C.new
-obj.to_s #=> “#<c:0x357258>”
-
-class C
-    instance_methods.each do |m|
-        undef_method unless m.to_s = ~/method_missing | respond_to? | ^/
-    end
-end
-
-obj.to_s #=> “a Ghost Method”
-</c:0x357258></pre>
-
-
-<h3 id="Class_Extension(类扩展)">Class Extension(类扩展)</h3><pre>
-通过向类的eigenclass中混入模块来定义类方法。
-class C; end
-module M
-    def my_method
-        ‘a class method’
-    end
-end
-class << C
-    include M
-end
-C.my_method #=> “a class method”
-</pre>
-
-
-<h3 id="Class_Extension_Mixin(类扩展混入)">Class Extension Mixin(类扩展混入)</h3><pre>
-使一个模块可以通过钩子方法扩展它的包含者。
-module M
-    def self.included(base)
-        base.extend(ClassMethods)
-    end
-    module ClassMethods
-        def my_method
-‘a class method’
-end
-    end
-end
-
-class C 
-    include M
-end
-
-C.my_method #=> ‘a class method’
-</pre>
-
-
-<h3 id="Class_Instance_Variable(类实例变量)">Class Instance Variable(类实例变量)</h3><pre>
-在一个Class对象中的实例变量中存储类级别的状态。
-class C
-    @my_class_instance_variable = “some value”
-    def self.class_attribute
-        @my_class_instance_variable
-    end
-end
-C.class_attribute #=> “some value”
-</pre>
-
-
-<h3 id="Class_Macro(类宏)">Class Macro(类宏)</h3><pre>
-在类定义中使用一个类方法。
-class C; end
-class << C
-    def my_macro(arg)
-        “my_macro(#{arg}) called”
-    end
-end
-class C 
-    my_macro :x #=> “my_macro(x) called”
-end
-</pre>
-
-
-<h3 id="Clean_Room(洁净室)">Clean Room(洁净室)</h3><pre>
-使用对象作为执行块的上下文环境。
-class CleanRoom
-    def a_useful_method(x); x*2; end
-end
-CleanRoom.new.instance_eval  {a_useful_method(3)}     #=> 6
-</pre>
-
-
-<h3 id="Code_Processor(代码处理器)">Code Processor(代码处理器)</h3><pre>
-处理从外部获得的字符串代码。
-File.readlines(“test_xxx.txt”).each do |line|
-    puts ”#{ line.chomp} ==> #{eval(line) }”
-end
-
-#>> 1+1 ==> 2
-#>> 3*2 ==> 6
-#>> Math.log10(100) ==> 2.0
-</pre>
-
-
-<h3 id="Context_Probe(上下文指针)">Context Probe(上下文指针)</h3><pre>
-执行块来获取对象上下文的信息
-class C
-    def initialize
-        @x = “a private instance variable”
-    end
-end
-
-obj = C.new
-obj.instance_eval{@x}  #=>    “a private instance variable”
-</pre>
-
-
-<h3 id="Deferred_Evaluation(延迟加载)">Deferred Evaluation(延迟加载)</h3><pre>
-在proc或lambda中存储一段代码及其上下文，用于以后执行。
-class C
-    def store(&block)
-        @my_code_capsule = block
-    end
-
-    def exec
-        @my_code_capsule.call
-    end
-end
-
-obj = C,new
-obj.store{$x=1}
-$x = 0
-obj.execute
-$x #=> 1
-</pre>
-
-
-<h3 id="Dynamic_Dispatch(动态派发)">Dynamic Dispatch(动态派发)</h3><pre>
-在运行时决定调用哪个方法。
-method_to_call= :reverse
-obj = “abc”
-obj.send(method_to_call) #=> “cba”
-13.    Dynamic Method(动态方法)
-在运行时才决定如何定义一个方法。
-class c; end
-
-C.class_eval do
-    define_method :my_method do
-        “a dynamic method
-    end
-end
-
-obj = C.new
-obj.my_method #=> “a dynamic method”
-</pre>
-
-
-<h3 id="Dynamic_Method(动态方法)">Dynamic Method(动态方法)</h3><pre>
-在运行时才决定如何定义一个方法。
-class c; end
-
-C.class_eval do
-    define_method :my_method do
-        “a dynamic method
-    end
-end
-
-obj = C.new
-obj.my_method #=> “a dynamic method”
-</pre>
-
-
-<h3 id="Dynamic_Proxy(动态代理)">Dynamic Proxy(动态代理)</h3><pre>
-把不能对应某个方法名的消息转发给另外一个对象。
-class MyDynamicProxy
-    def initialize(target)
-        @target = target
-    end
-
-    def method_missing(name, *args, &block)
-        “result: #{@target.send(name, *args, &block)}”
-    end
-end
-
-obj = MyDynamicProxy.new(“a string”)
-obj.reverse #=> “result: gnirts a”
-</pre>
-
-
-<h3 id="Flat_Scope(扁平作用域)">Flat Scope(扁平作用域)</h3><pre>
-使用闭包在两个作用域之间共享变量。
-class C
-    def an_attribute
-        @attr
-    end 
-end
-
-obj = C.new
-a_variable = 100
-
-#Flat scope
-obj.instance_eval do
-    @attr= a_variable
-end
-obj.an_attribute #=> 100
-</pre>
-
-
-<h3 id="Ghost_Method(幽灵方法)">Ghost Method(幽灵方法)</h3><pre>
-相应一个没有关联方法的消息。
-class C 
-    def method_missing(name, *args)
-        name.to_s.reverse
-end    
-end
-
-obj = C.new
-obj.my_ghost_method     #=> “dohtom_tsohg_ym”
-</pre>
-
-
-<h3 id="Hook_Method(钩子方法)">Hook Method(钩子方法)</h3><pre>
-通过覆写某个特殊方法来截取对象的模型事件。
-$INHERITORS = []
-class C
-    def self.inherited(subclass)
-        $INHERITORS << subclass
-    end
-end
-
-class D  < C
-end
-class E < C
-end
-class F < E
-$INHERITORS    #=> [D, E, F]
-</pre>
-
-
-<h3 id="Kernel_Method(内核方法)">Kernel Method(内核方法)</h3><pre>
-在Kernel模块中定义一个方法，使之对所有对象都可用。
-module Kernel
-    def a_method
-        “a kernel method”
-    end
-end
-a_method     #=> “a kernel method”
-19.    Lazy Instance Variable(惰性实例变量)
-当第一次访问一个实例变量时才对之进行初始化。
-class C
-    def attribute
-        @attribute = @attribute || “some value”
-    end
-end
-
-obj = C.new
-obj.attribute     #=> “some value”
-</pre>
-
-
-
-
-
-<h3 id="Mimic_Method(拟态方法)">Mimic Method(拟态方法)</h3><pre>
-把一个方法伪装成另外一种语言构件。
-def BaseClass(name)
-    name == “String” ?  String : Object
-end
-
-class C < BaseClass(string)         #一个看起来像类的方法
-    attr_accessor :an_attribute    #一个看起来像关键字的方法
-end
-
-obj  = C.new
-obj.anattibute=1     #一个看起来像属性的方法
-</pre>
-
-
-<h3 id="Monkey_Patch(猴子补丁)">Monkey Patch(猴子补丁)</h3><pre>
-修改已有类的特性。
-“abc”.reverse    #=> “cba”
-class String 
-    def reverse
-        “override”
-    end
-end
-“abc”.reverse    #=> “override”
-</pre>
-
-
-<h3 id="Named_Arguments(有名参数)">Named Arguments(有名参数)</h3><pre>
-把方法参数收集到一个哈希表中，以便通过名字访问。
-def my_method(args)
-    args[:args2]
-end
-my_method(arg1 => 1, arg2 => 2, arg3 => 3)     #=> 2
-</pre>
-
-
-<h3 id="Namespace(命名空间)">Namespace(命名空间)</h3><pre>
-在一个模块中定义常量，以防命名冲突。
-module M
-    class Array
-        def to_s
-            “myclass”
-        end
-    end
-end
-Array.new     #=> []
-M::Array.new     #=> “myclass”
-</pre>
-
-
-<h3 id="Nil_Guard(空指针保护)">Nil Guard(空指针保护)</h3><pre>
- 用“或”操作符覆写一个空引用。
-x = nil
-y = x || “a value”     #=> “a value”
-</pre>
-
-
-<h3 id="Object_Extension(对象扩展)">Object Extension(对象扩展)</h3><pre>
-通过给一个对象的eigenclass混入模块来定义单件方法。
-obj = Object.new
-module M
-    def my_method
-        ‘a singleton method’
-    end
-end
-
-class << obj
-    include M
-end
-obj.my_method    #=> “a singleton method”
-</pre>
-
-
-<h3 id="Open_Class(打开类)">Open Class(打开类)</h3><pre>
-修改已有的类。
-class String 
-def my_method
-“my method”
-end
-end
-
-“abc”.my_method    #=> “my method”
-</pre>
-
-
-<h3 id="Pattern_Dispatch(模式派发)">Pattern Dispatch(模式派发)</h3><pre>
-根据名字来选择需要调用的方法。
-$x = 0
-class C
-    def my_first_method
-        $x += 1
-    end
-
-    def my_second_method
-        $x += 2
-    end
-end
-
-obj = C.new
-obj.methods.each do |m|
-    obj.send(m) if m.to_s =~/^my_/
-end
-$x     #=> 3
-</pre>
-
-
-<h3 id="Sandbox(沙箱)">Sandbox(沙箱)</h3><pre>
-在一个安全的环境中执行未授信的代码。
-def sandbox(&code)
-      proc {
-            $SAFE = 2
-            yield
-}.call
-end
-
-begin
-    sandbox(File.delete ‘a_file)
-rescue Exception => e
-    e #=> #<securityerror: 2="" insecure="" operation="" `delete’="" at="" level="">
-end
-</securityerror:></pre>
-
-
-<h3 id="Scope_Gate(作用域门)">Scope Gate(作用域门)</h3><pre>
-用class、module或def关键字来隔离作用域
-a = 1
-defined? a  #=> “local-variable”
-
-module MyModule
-     b – 1
-      defined? a     #=> nil
-      defined? b     #=> “local-variable”
-end
-
-defined? a     #=> “local-variable”
-defined? b     #=> nil
-</pre>
-
-
-<h3 id="Self_Yield">Self Yield</h3><pre>
-把self 传给当前类
-
-class Person
-      attr_accessor :name, :surname
-
-      def initialize
-            yield self
-      end
-end
-
-e.g.: 
-
-def tap 
-      yield self 
-      self 
-end
-</pre>
-
-
-<h3 id="Shared_Scope(共享作用域)">Shared Scope(共享作用域)</h3><pre>
- 在同一个扁平作用域的多个上下文中共享变量。
-lambda {
-shared = 10
-self.class.class_eval do
-            define_method :counter do
-                  shared
-            end
-
-            define_method :down do
-                   shared -= 1
-            end
-      end
-}.call
-
-counter        #=> 10
-3.times {down}
-counter        #=>  7
-</pre>
-
-
-<h3 id="Singleton_Method(单件方法)">Singleton Method(单件方法)</h3><pre>
-在一个对象上定义一个方法。
-
-obj = “abc”
-class << obj 
-      def my_singleton_method
-            “x”
-      end
-end
-obj.my_singleton_method #=> “x”
-</pre>
-
-
-<h3 id="String_of_Code(代码字符串)">String of Code(代码字符串)</h3><pre>
-执行一段表示Ruby代码的字符串。
-string_of_code = “1+1”
-eval(string_of_code) #=> 2
-</pre>
-
-
-<h3 id="Symbol_to_Proc(符号到Proc)">Symbol to Proc(符号到Proc)</h3><pre>
-把一个符号转换为调用单个方法的代码块
-[1, 2, 3, 4].map(&:even?) #=> [false, true, false, true]
-
-原理：
-class Symbol
-      def to_proc
-            Proc.new {|x| x.send(self)}
-      end    
-end
-</pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://nishuo.org/2015/03/27/ruby-meta-programming/" data-id="ci7rdqb4w00002cp26x59yypo" class="article-share-link">Share</a>
-      
-        <a href="http://nishuo.org/2015/03/27/ruby-meta-programming/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handy/">handy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tech/">tech</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
 </article>
-
-
   
-    <article id="post-Vim" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/05/Vim/" class="article-date">
-  <time datetime="2015-03-05T06:56:55.000Z" itemprop="datePublished">2015-03-05</time>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2015/03/05/Vim/" class="archive-article-date">
+  <time datetime="2015-03-05T06:56:55.000Z" itemprop="datePublished">Mar 5</time>
 </a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/work/">work</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/05/Vim/">Vim manual</a>
+      <a class="archive-article-title" href="/2015/03/05/Vim/">Vim manual</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Last_operation">Last operation</h3><p>Use <code>.</code> to replicate last operation</p>
-
-
-<h3 id="Move">Move</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>h</code></td><td>left</td></tr><tr><td><code>l</code></td><td>right</td></tr><tr><td><code>j</code></td><td>down</td></tr><tr><td><code>k</code></td><td>up</td></tr><tr><td><code>w</code></td><td>next word</td></tr><tr><td><code>d</code></td><td>prev word</td></tr></tbody></table>
-
-
-<h3 id="Insertion">Insertion</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>i</code></td><td>insert at current caret</td></tr><tr><td><code>I</code></td><td>insert to line start</td></tr><tr><td><code>a</code></td><td>insert after current caret</td></tr><tr><td><code>A</code></td><td>insert to line end</td></tr><tr><td><code>o</code></td><td>strart new line after caret</td></tr><tr><td><code>O</code></td><td>strart new line before caret</td></tr><tr><td><code>cw</code></td><td>replace from caret to the end of a word</td></tr></tbody></table>
-
-
-<h3 id="Save_&amp;_quit">Save &amp; quit</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>:q!</code></td><td>force quit without save</td></tr><tr><td><code>:q</code></td><td>quit</td></tr><tr><td><code>:wq!</code></td><td>force save and quit</td></tr><tr><td><code>:w +file name</code></td><td>save</td></tr><tr><td><code>:saveas +file path</code></td><td>save as</td></tr><tr><td><code>:x</code></td><td>save and quit</td></tr><tr><td><code>:wq</code></td><td>save and quit</td></tr></tbody></table>
-
-
-<h3 id="Deletion">Deletion</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>x</code></td><td>delete char at current caret</td></tr><tr><td><code>X</code></td><td>delete char before caret</td></tr><tr><td><code>Delete</code></td><td>same as <code>x</code></td></tr><tr><td><code>dd</code></td><td>delete the current line</td></tr><tr><td><code>dw</code></td><td>delete a word</td></tr><tr><td><code>d$ or D</code></td><td>delete to line end</td></tr><tr><td><code>d^</code></td><td>delete to line start</td></tr><tr><td><code>dG</code></td><td>delete to document end</td></tr><tr><td><code>d1G</code></td><td>delete to document start</td></tr></tbody></table>
-
-
-<h3 id="Move_between_lines">Move between lines</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>nG</code></td><td>move caret to line #n</td></tr><tr><td><code>gg</code></td><td>move caret to first line</td></tr><tr><td><code>G</code></td><td>move caret to last line</td></tr></tbody></table>
-
-
-<h3 id="Move_inside_line">Move inside line</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>w</code></td><td>to next word start</td></tr><tr><td><code>e</code></td><td>to next word end</td></tr><tr><td><code>b</code></td><td>to prev word start</td></tr><tr><td><code>ge</code></td><td>to prev word end</td></tr><tr><td><code>0 or ^</code></td><td>to line start</td></tr><tr><td><code>$</code></td><td>to line end</td></tr><tr><td><code>f+letter</code></td><td>find letter backward and move to the first match position</td></tr><tr><td><code>F+letter</code></td><td>find letter forward and move to the first match position</td></tr><tr><td><code>t+letter</code></td><td>find letter backward and move to a letter before the first match position</td></tr><tr><td><code>T+letter</code></td><td>find letter forward and move to a letter before the first match position</td></tr></tbody></table>
-
-
-<h3 id="Copy_and_paste">Copy and paste</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>y</code></td><td>copy</td></tr><tr><td><code>yy</code></td><td>copy current line</td></tr><tr><td><code>y^</code></td><td>copy to line start</td></tr><tr><td><code>y$</code></td><td>copy to line end</td></tr><tr><td><code>yw</code></td><td>copy word</td></tr><tr><td><code>y2w</code></td><td>copy 2 words</td></tr><tr><td><code>yG</code></td><td>copy to ducument end</td></tr><tr><td><code>y1G</code></td><td>copy to document start</td></tr><tr><td><code>p</code></td><td>paste after caret</td></tr><tr><td><code>P</code></td><td>paste before caret</td></tr></tbody></table>
-
-
-<h3 id="Replace_and_undo">Replace and undo</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>r +letter</code></td><td>replace caret letter to specific letter</td></tr><tr><td><code>R</code></td><td>replace continuously until <code>Esc</code> press</td></tr><tr><td><code>cc</code></td><td>replace current line</td></tr><tr><td><code>cw</code></td><td>replace a word</td></tr><tr><td><code>C</code></td><td>replace from caret to line end</td></tr><tr><td><code>~</code></td><td>toggole case of current letter</td></tr><tr><td><code>u{n}</code></td><td>undo n time</td></tr><tr><td><code>U</code></td><td>undo all changes of current line</td></tr><tr><td><code>Ctrl+r</code></td><td>redo, undo an undo</td></tr></tbody></table>
-
-
-<h3 id="Indent">Indent</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>&gt;&gt;</code></td><td>increase indent</td></tr><tr><td><code>&lt;&lt;</code></td><td>decrease indent</td></tr><tr><td><code>:set shiftWidth?</code></td><td>how many space</td></tr><tr><td><code>:set shiftWidth=8</code></td><td>set 8 spaces of each indent</td></tr></tbody></table>
-
-
-<h3 id="Alignment">Alignment</h3><table><thead><th class="key">Key</th><th class="description">Description</th></thead><tbody><tr><td><code>:ce</code></td><td>center align</td></tr><tr><td><code>:ri</code></td><td>right align</td></tr><tr><td><code>:le</code></td><td>left align</td></tr></tbody></table>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://nishuo.org/2015/03/05/Vim/" data-id="ci7rdqb6700072cp2gqkuubnm" class="article-share-link">Share</a>
-      
-        <a href="http://nishuo.org/2015/03/05/Vim/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handy/">handy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tech/">tech</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
 </article>
-
-
   
+  
+    </div></section>
   
 </section>
         
