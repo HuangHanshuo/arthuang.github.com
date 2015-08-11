@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,76 +7,28 @@
   <meta name="baidu-site-verification" content="w5RBQVLwEO" />
   
   <title>Regular Expression | N&amp;S</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Character Escapes
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <meta name="description" content="Character Escapes代码/语法说明.匹配除换行符以外的任意字符\w匹配字母或数字\s匹配任意的空白符\d匹配数字\b匹配单词的开始或结束^匹配字符串的开始$匹配字符串的结束
 
-  
-    
-      Escaped character
-    
-    
-      Description
-    
-    
-      Pattern
-    
-    
-      Matches
-    
-  
-  
-    
-      
-        
-          \a">
+Quantifiers代码/语法说明*重复零次或更多次+重复一次或更多次?重复零次或一次{n}重复n次{n,}重复n次或更多次{n,m}重复n到m次
+
+Anchors代码/语法说明\W匹配任意不是字母和数字的字">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Regular Expression">
 <meta property="og:url" content="http://nishuo.org/2015/04/26/regex/index.html">
 <meta property="og:site_name" content="N&S">
-<meta property="og:description" content="Character Escapes
+<meta property="og:description" content="Character Escapes代码/语法说明.匹配除换行符以外的任意字符\w匹配字母或数字\s匹配任意的空白符\d匹配数字\b匹配单词的开始或结束^匹配字符串的开始$匹配字符串的结束
 
-  
-    
-      Escaped character
-    
-    
-      Description
-    
-    
-      Pattern
-    
-    
-      Matches
-    
-  
-  
-    
-      
-        
-          \a">
+Quantifiers代码/语法说明*重复零次或更多次+重复一次或更多次?重复零次或一次{n}重复n次{n,}重复n次或更多次{n,m}重复n到m次
+
+Anchors代码/语法说明\W匹配任意不是字母和数字的字">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Regular Expression">
-<meta name="twitter:description" content="Character Escapes
+<meta name="twitter:description" content="Character Escapes代码/语法说明.匹配除换行符以外的任意字符\w匹配字母或数字\s匹配任意的空白符\d匹配数字\b匹配单词的开始或结束^匹配字符串的开始$匹配字符串的结束
 
-  
-    
-      Escaped character
-    
-    
-      Description
-    
-    
-      Pattern
-    
-    
-      Matches
-    
-  
-  
-    
-      
-        
-          \a">
+Quantifiers代码/语法说明*重复零次或更多次+重复一次或更多次?重复零次或一次{n}重复n次{n,}重复n次或更多次{n,m}重复n到m次
+
+Anchors代码/语法说明\W匹配任意不是字母和数字的字">
   
   
     <link rel="icon" href="http://7x006i.com1.z0.glb.clouddn.com/images/favicon.png">
@@ -117,339 +70,72 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-regex" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/26/regex/" class="article-date">
+        <section id="main">
+    <article id="post-regex" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="article-meta">
+        <a href="/2015/04/26/regex/" class="article-date">
   <time datetime="2015-04-26T09:52:51.000Z" itemprop="datePublished">2015-04-26</time>
 </a>
-    
+        
   <div class="article-category">
     <a class="article-category-link" href="/categories/work/">work</a>
   </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      </div>
+      <div class="article-inner">
         
+        
+          <header class="article-header">
+            
   
     <h1 class="article-title" itemprop="name">
       Regular Expression
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Character_Escapes">Character Escapes</h3><pre>
-<table>
-  <tbody><tr>
-    <th>
-      <p>Escaped character</p>
-    </th>
-    <th>
-      <p>Description</p>
-    </th>
-    <th>
-      <p>Pattern</p>
-    </th>
-    <th>
-      <p>Matches</p>
-    </th>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\a</span>
-        </span>
-      </p>
-    </td>
-    <td>
-      <p>Matches a bell character, \u0007.</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">\a</span>
-      </p>
-    </td>
-    <td>
-      <p>"\u0007" in "Error!" + '\u0007'</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\b</span>
-        </span>
-      </p>
-    </td>
-    <td>
-      <p>In a character class, matches a backspace, \u0008.</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">[\b]{3,}</span>
-      </p>
-    </td>
-    <td>
-      <p>"\b\b\b\b" in "\b\b\b\b"</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\t</span>
-        </span>
-      </p>
-    </td>
-    <td>
-      <p>Matches a tab, \u0009.</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">(\w+)\t</span>
-      </p>
-    </td>
-    <td>
-      <p>"item1\t", "item2\t" in "item1\titem2\t"</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\r</span>
-        </span>
-      </p>
-    </td>
-    <td>
-      <p>Matches a carriage return, \u000D. (<span><span class="input">\r</span></span> is not equivalent to the newline character, <span><span class="input">\n</span></span>.)</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">\r\n(\w+)</span>
-      </p>
-    </td>
-    <td>
-      <p>"\r\nThese" in "\r\nThese are\ntwo lines."</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\v</span>
-        </span>
-      </p>
-    </td>
-    <td>
-      <p>Matches a vertical tab, \u000B.</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">[\v]{2,}</span>
-      </p>
-    </td>
-    <td>
-      <p>"\v\v\v" in "\v\v\v"</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\f</span>
-        </span>
-      </p>
-    </td>
-    <td>
-      <p>Matches a form feed, \u000C.</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">[\f]{2,}</span>
-      </p>
-    </td>
-    <td>
-      <p>"\f\f\f" in "\f\f\f" </p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\n</span>
-        </span>
-      </p>
-    </td>
-    <td>
-      <p>Matches a new line, \u000A.</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">\r\n(\w+)</span>
-      </p>
-    </td>
-    <td>
-      <p>"\r\nThese" in "\r\nThese are\ntwo lines."</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\e</span>
-        </span>
-      </p>
-    </td>
-    <td>
-      <p>Matches an escape, \u001B.</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">\e</span>
-      </p>
-    </td>
-    <td>
-      <p>"\x001B" in "\x001B"</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\</span>
-        </span>
-        <span class="parameter">nnn</span>
-      </p>
-    </td>
-    <td>
-      <p>Uses octal representation to specify a character (<span class="parameter">nnn</span> consists of two or three digits).</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">\w\040\w</span>
-      </p>
-    </td>
-    <td>
-      <p>"a b", "c d" in </p>
-      <p>"a bc d"</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\x</span>
-        </span>
-        <span class="parameter">nn</span>
-      </p>
-    </td>
-    <td>
-      <p>Uses hexadecimal representation to specify a character (<span class="parameter">nn</span> consists of exactly two digits).</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">\w\x20\w</span>
-      </p>
-    </td>
-    <td>
-      <p>"a b", "c d" in </p>
-      <p>"a bc d"</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\c</span>
-        </span>
-        <span class="parameter">X</span>
-      </p>
-      <p>
-        <span>
-          <span class="input">\c</span>
-        </span>
-        <span class="parameter">x</span>
-      </p>
-    </td>
-    <td>
-      <p>Matches the ASCII control character that is specified by <span class="parameter">X</span> or <span class="parameter">x</span>, where <span class="parameter">X</span> or <span class="parameter">x</span> is the letter of the control character. </p>
-    </td>
-    <td>
-      <p>
-        <span class="code">\cC</span>
-      </p>
-    </td>
-    <td>
-      <p>"\x0003" in "\x0003" (Ctrl-C) </p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\u</span>
-        </span>
-        <span class="parameter">nnnn</span>
-      </p>
-    </td>
-    <td>
-      <p>Matches a Unicode character by using hexadecimal representation (exactly four digits, as represented by <span class="parameter">nnnn</span>).</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">\w\u0020\w</span>
-      </p>
-    </td>
-    <td>
-      <p>"a b", "c d" in </p>
-      <p>"a bc d"</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <span>
-          <span class="input">\</span>
-        </span>
-      </p>
-    </td>
-    <td>
-      <p>When followed by a character that is not recognized as an escaped character in this and other tables in this topic, matches that character. For example, <span><span class="input">\*</span></span> is the same as <span><span class="input">\x2A</span></span>, and <span><span class="input">\.</span></span> is the same as <span><span class="input">\x2E</span></span>. This allows the regular expression engine to disambiguate language elements (such as * or ?) and character literals (represented by <span class="code">\*</span> or <span class="code">\?</span>).</p>
-    </td>
-    <td>
-      <p>
-        <span class="code">\d+[\+-x\*]\d+</span>
-      </p>
-    </td>
-    <td>
-      <p>"2+2" and "3*9" in "(2+2) * 3*9"</p>
-    </td>
-  </tr>
-</tbody></table>
-</pre>
+          </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+          
+            <h3 id="Character_Escapes">Character Escapes</h3><table cellspacing="0"><tbody><tr><th>代码/语法</th><th>说明</th></tr><tr><td><span class="code">.</span></td><td><span class="desc">匹配除换行符以外的任意字符</span></td></tr><tr><td><span class="code">\w</span></td><td><span class="desc">匹配字母或数字</span></td></tr><tr><td><span class="code">\s</span></td><td><span class="desc">匹配任意的空白符</span></td></tr><tr><td><span class="code">\d</span></td><td><span class="desc">匹配数字</span></td></tr><tr><td><span class="code">\b</span></td><td><span class="desc">匹配单词的开始或结束</span></td></tr><tr><td><span class="code">^</span></td><td><span class="desc">匹配字符串的开始</span></td></tr><tr><td><span class="code">$</span></td><td><span class="desc">匹配字符串的结束</span></td></tr></tbody></table>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://nishuo.org/2015/04/26/regex/" data-id="cicg2bujm000014p20v8ofkul" class="article-share-link">Share</a>
-      
-        <a href="http://nishuo.org/2015/04/26/regex/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
+<h3 id="Quantifiers">Quantifiers</h3><table cellspacing="0"><tbody><tr><th>代码/语法</th><th>说明</th></tr><tr><td><span class="code">*</span></td><td><span class="desc">重复零次或更多次</span></td></tr><tr><td><span class="code">+</span></td><td><span class="desc">重复一次或更多次</span></td></tr><tr><td><span class="code">?</span></td><td><span class="desc">重复零次或一次</span></td></tr><tr><td><span class="code">{n}</span></td><td><span class="desc">重复n次</span></td></tr><tr><td><span class="code">{n,}</span></td><td><span class="desc">重复n次或更多次</span></td></tr><tr><td><span class="code">{n,m}</span></td><td><span class="desc">重复n到m次</span></td></tr></tbody></table>
+
+<h3 id="Anchors">Anchors</h3><table cellspacing="0"><tbody><tr><th>代码/语法</th><th>说明</th></tr><tr><td><span class="code">\W</span></td><td><span class="desc">匹配任意不是字母和数字的字符</span></td></tr><tr><td><span class="code">\S</span></td><td><span class="desc">匹配任意不是空白符的字符</span></td></tr><tr><td><span class="code">\D</span></td><td><span class="desc">匹配任意非数字的字符</span></td></tr><tr><td><span class="code">\B</span></td><td><span class="desc">匹配不是单词开头或结束的位置</span></td></tr><tr><td><span class="code">[^x]</span></td><td><span class="desc">匹配除了x以外的任意字符</span></td></tr><tr><td><span class="code">[^aeiou]</span></td><td><span class="desc">匹配除了aeiou这几个字母以外的任意字符</span></td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+          
+        </div>
+        <footer class="article-footer">
+          <a data-url="http://nishuo.org/2015/04/26/regex/" data-id="cid73z6j3000752p2zxpv1ht2" class="article-share-link">Share</a>
+          
+            <a href="http://nishuo.org/2015/04/26/regex/#disqus_thread" class="article-comment-link">Comments</a>
+          
+          
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handy/">handy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tech/">tech</a></li></ul>
 
-    </footer>
-  </div>
-  
-    
+        </footer>
+      </div>
+      
+        
 <nav id="article-nav">
+  
+    <a href="/2015/08/11/dices/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Dices
+        
+      </div>
+    </a>
   
   
     <a href="/2015/03/27/ruby-meta-programming/" id="article-nav-older" class="article-nav-link-wrap">
@@ -459,15 +145,16 @@
   
 </nav>
 
-  
-</article>
-
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+      
+    </article>
+    
+    
+    <section id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+    </section>
+    
 </section>
         
           <aside id="sidebar">
@@ -477,6 +164,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/08/11/dices/">Dices</a>
+          </li>
         
           <li>
             <a href="/2015/04/26/regex/">Regular Expression</a>
@@ -499,7 +190,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/handy/" style="font-size: NaNpx;">handy</a><a href="/tags/tech/" style="font-size: NaNpx;">tech</a>
+      <a href="/tags/games/" style="font-size: 10px;">games</a><a href="/tags/handy/" style="font-size: 20px;">handy</a><a href="/tags/tech/" style="font-size: 20px;">tech</a>
     </div>
   </div>
 
