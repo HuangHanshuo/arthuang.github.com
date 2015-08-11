@@ -13,6 +13,9 @@
 <script type="text/javascript">
     var interval;
     $('.btn-again').click(function(){
+        if($div.css("opacity") == '0') {
+            $div.animate({opacity: 1}, 500)
+        }
         if (interval) {
             document.getElementById("audio").pause();
             document.getElementById("audio").currentTime = 0;
