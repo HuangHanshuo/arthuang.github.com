@@ -14,6 +14,7 @@
 
 <p><div id="timeline-embed" style="width: 100%; height: 600px"></div></p>
 <script type="text/javascript">
+var today = new Date();
 data = {
     "title": {
         "media": {
@@ -328,7 +329,7 @@ data = {
           "day": "1"
         },
         "end_date": {
-          "year": "now"
+          "year": today.getFullYear().toString()
         },
         "text": {
           "headline": "中华人民共和国",
