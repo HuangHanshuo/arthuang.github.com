@@ -16,17 +16,17 @@
     var interval;
     var lucky;
     var timer;
-    var obj;
+    var obj = {};
     f(window.location.search);
     $('.btn-again').click(function(){
         if(timer == undefined) {
             timer = Date.now()
         } else {
-            if((Date.now() - timer) <= parseInt(obj['disabled']) || 10000) {
+            if((Date.now() - timer) <= (parseInt(obj['disabled']) || 10000)) {
                 return false;
             }
         }
-        lucky = Math.random() <= obj['lucky'] || .04
+        lucky = Math.random() <= (parseInt(obj['lucky'])/100 || .04)
         if($('.dices').css("opacity") == '0') {
             $('.dices').animate({opacity: 1}, 200)
             $('.btn-cover ').html('&#38544;&#34255;')
