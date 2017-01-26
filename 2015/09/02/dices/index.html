@@ -16,15 +16,17 @@
     var interval;
     var lucky;
     var timer;
+    var obj;
+    f(window.location.search);
     $('.btn-again').click(function(){
         if(timer == undefined) {
             timer = Date.now()
         } else {
-            if((Date.now() - timer) <= 10000) {
+            if((Date.now() - timer) <= parseInt(obj['disabled']) || 10000) {
                 return false;
             }
         }
-        lucky = Math.random() <= .04
+        lucky = Math.random() <= obj['lucky'] || .04
         if($('.dices').css("opacity") == '0') {
             $('.dices').animate({opacity: 1}, 200)
             $('.btn-cover ').html('&#38544;&#34255;')
@@ -64,6 +66,15 @@
     }
     function stopRolling() {
         clearInterval(interval)
+    }
+    function f(s) {
+      r = s.match(/([a-z]+)=([a-z0-9]+)/);
+      if(r == null) {
+        return;
+      }
+      s = s.replace(r[0]);
+      obj[r[1]] = r[2];
+      f(s)
     }
 </script>
 
