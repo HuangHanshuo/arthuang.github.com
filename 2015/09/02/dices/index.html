@@ -129,6 +129,8 @@
             //feature detect
             this.hasDeviceMotion = 'ondevicemotion' in window;
 
+            console.log(this.hasDeviceMotion)
+
             this.options = {
                 threshold: 15, //default velocity threshold for shake to register
                 timeout: 1000 //default interval between events
