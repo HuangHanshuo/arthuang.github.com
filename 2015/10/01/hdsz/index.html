@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黄豆识字</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+        .char {
+            min-width: 80px;
+            min-height: 80px;
+            cursor: pointer;
+            border: 1px solid #eee;
+            font-size: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="chars" class="row text-center">
+        </div>
+    </div>
+    <audio autoplay controls="controls" id="audio-player" style="opacity: 0;">  
+        <source id="audio-source" src="" />  
+     </audio>
+</body>
+<script src="https://unpkg.com/pinyin-pro"></script>
+<!-- <script src="https://fastly.jsdelivr.net/npm/cnchar/cnchar.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<!-- <script>
+    '汉字'.spell();
+    '汉字'.stroke();
+</script> -->
+<script>
+    let { pinyin }= pinyinPro;
+
+    let data = ['一','二','三','四','五','六','七','八','九','十','百','千','加','减','乘','除','大','小','多','少','长','短','方','圆','前','后','左','右','上','下','里','外','远','近','高','矮','出','入','开','关','起','落','来','去','轻','重','快','慢','有','无','空','满','凉','热','冷','暖','真','假','好','坏','生','熟','湿','干','粗','细','软','硬','横','竖','直','弯','正','斜','薄','厚','宽','窄','深','浅','春','夏','秋','冬','阴','晴','早','晚','东','南','西','北','酸','甜','苦','辣','日','月','水','火','山','石','土','田','天','地','星','云','风','雨','雷','电','衣','帽','鞋','袜','巾','帕','枕','垫','杯','瓶','壶','桶','钟','表','灯','扇','勺','筷','刀','叉','锅','碗','盘','盆','镜','梳','床','凳','钉','铲','针','线','琴','棋','书','画','笔','纸','尺','盒','伞','烛','鼓','铃','球','筒','箱','包','瓜','果','梨','桃','饭','菜','米','面','葱','姜','蒜','椒','糕','饼','蛋','糖','柿','茄','菠','豆','莓','李','橙','蕉','红','黄','蓝','绿','紫','粉','白','黑','花','草','树','木','梅','兰','竹','菊','冰','雪','沙','虹','江','河','海','瀑','桌','椅','门','窗','机','车','船','帆','枝','叶','芽','苗','杨','柳','松','桦','哥','姐','弟','妹','爷','奶','爸','妈','你','我','他','她','男','女','老','幼','眼','耳','口','鼻','手','足','牙','脸','人','身','头','发','师','工','医','哭','笑','喜','怒','吃','喝','醒','睡','走','跑','坐','卧','摸','爬','站','立','折','剪','编','涂','滑','骑','抱','玩','写','指','举','拍','看','想','拿','洗','鸟','兽','虫','鱼','猫','狗','兔','雁','猪','马','牛','羊','鸡','鸭','鹅','燕']
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+
+        let html = '';
+        for (let index = 0; index < data.length; index++) {
+            const c = data[index];
+            html += `<div onclick="read('${c}')" class="col-3 col-md-4 col-sm-12 char">${c}</div>`
+        }
+
+        document.getElementById('chars').insertAdjacentHTML('beforeend', html);
+
+    });
+
+    let read = (c) => {
+        console.log(c);
+        let pron = pinyin(c, { toneType: 'num' });  
+        console.log(pron);
+        // let pronUrl = `https://hanyu-word-pinyin-short.cdn.bcebos.com/${pron}.mp3`
+        let pronUrl = `http://yinjie.hanyupinyin.cn/duyinjie/${pron}.mp3`
+        let source = document.getElementById('audio-source');
+        let audio = document.getElementById('audio-player');
+        console.log(pronUrl);
+        source.src = pronUrl;
+        audio.load();
+        audio.play();
+    }
+</script>
+</html>
