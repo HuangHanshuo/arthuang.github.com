@@ -31,7 +31,9 @@
         roll();
     })
     
-    window.onload = function() {
+    window.addEventListener('DOMContentLoaded', (event) => {
+
+        alert('DOMContentLoaded!');
 
         //create a new instance of shake.js.
         var myShakeEvent = new Shake({
@@ -51,7 +53,7 @@
             alert('Shake!');
             roll();
         }
-    };
+    });
     
     $('.btn-cover').click(function(){
         $div = $('.dices');
